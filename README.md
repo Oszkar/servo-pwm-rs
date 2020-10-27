@@ -53,3 +53,5 @@ All `false` is the default address, you can substitute it to the crate's predefi
 ## Next steps
 
 I might add tiny things but I will keep this as a minimal working example and start a new codebase if I move to the next step with my robotics project.
+
+One logical further next small step would be to switch to angles instead of a "value" that is defined by the duty cycle. In the example above is 0° = 122.88 and 270° = 614.4 (plus/minus error which is not small). It's a simple calculation. Again, these values are different for different servo motors.
