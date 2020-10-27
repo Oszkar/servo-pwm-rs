@@ -13,7 +13,7 @@ fn main() {
     let mut pwm = Pca9685::new(dev, address).unwrap();
 
     // see readme on these magic numbers
-    let servo_min = 122;
+    let servo_min = 123;
     let servo_max = 614;
     let num_steps = 60;
     let servo_steps = (servo_max as f32 - servo_min as f32) / num_steps as f32;
