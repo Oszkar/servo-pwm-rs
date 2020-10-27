@@ -22,16 +22,18 @@ See the picture below showing my moderately messy setup. One could just directly
 
 ## Details
 
-There are 2 servos, the code will control them from the 2 extremes back and forth and then step through the range (they are going to step in the opposite direction). My servos have 270deg angle range. The 2 channels are defined in 2 const at the top of the code `LEFT` and `RIGHT`. No particular reason why #0 and #12 apart from I am planning to use 12 servos in the end. You can change it easily. I assume the example should be enough to give you an idea to modify it to more or less # of servos.
+There are 2 servos, the code will control them from the 2 extremes back and forth and then step through the range (they are going to step in the opposite direction). My servos have 270deg angle range. The 2 channels are defined in 2 `const`s at the top of the code: `LEFT` and `RIGHT`. No particular reason why `#0` and `#12` apart from I am planning to use 12 servos in the end. You can change it easily. I assume the example should be enough to give you an idea to modify it to more or less # of servos.
 
 If you want both servos to do the same thing, it is cleaner to use `set_all_on_off()` instead of `set_channel_on_off()`.
+
+`servo_steps` is kept as a floating point number so that we don't accumulate rounding error in the loop (it has to be an integer though when passed to the `pwm` module).
 
 ### Servo min-max
 
 Other PCA9685 sample codes you find on the internet (Python, C++, Rust, whatever) will use different values and the value is dependent on your servo. Originally I just experimented with trial and error to find the boundaries but if I am not mistaken, the calulation is as follows (again, I am new to this):
 
 - The control frequency is 60Hz (this is a default for all servos, my servo does not seem to specify it)
-- 60Hz gives us 1/60s (=16,666,66... usec) pulses/periods in the carrier signal
+- 60Hz gives us 1/60s (=16,666.666... usec) pulses/periods in the carrier signal
 - The data sheet of my servo specifies: `Pulse Width Range: 500 ~ 2500 usec` and `Neutral Position: 1500 usec`
 - According to my understanding the PWM signal for a servo always begins at the beggining of the cycle (0th pulse in the carrier signal)
 - `PCA9685` has 12-bit resolution = 4096 steps
